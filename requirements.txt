@@ -1,0 +1,12 @@
+wikipedia
+docx2txt
+pypdf
+langchain
+langchain-openai
+langchain-community
+langchain-chroma
+notebook
+chromadb
+fastapi
+toml
+
