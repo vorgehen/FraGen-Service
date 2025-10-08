@@ -2,8 +2,13 @@
 ## Quick Start
 1. Configure FastAPI in fraGen_service_config.toml
 2. Add OpenAi Key to fraGen_service_config.toml
-3. Start: python fraGen_service_fastapi.py
-4. Use: http://127.0.0.1:5000/docs
+3. python3 -m venv fraGen_venv
+4. source fraGen_venv/bin/activate (*)
+5. pip install -r requirements.txt
+6. Start: python fraGen_service_fastapi.py (*)
+7. Use: protocol://127.0.0.1:5000/docs
+8.upload pdf file with name <pdf_file_name> to resources dir
+9. post documents/3/<pdf_file_name> or put documents/3/<pdf_file_name>, if already in chromaDb
 ## Sources
 1. https://www.heise.de/ratgeber/Programmieren-mit-Python-Schnittstellen-entwickeln-mit-Pycharm-und-FastAPI-4940182.html?seite=all
 2. Roberto Infante. AI Agents and Applications. Manning
@@ -11,7 +16,7 @@
 ## Beispiel
 
 curl -X 'GET' \
-  'protocol://host:port/document/2/Stelle%2010%20MC%20Fragen%20zum%20medizinischen%20Inhalt%20des%20Dokuments' \
+  'protocol://host:port/document/3/Stelle%2010%20MC%20Fragen%20zum%20medizinischen%20Inhalt%20des%20Dokuments' \
   -H 'accept: application/json'
 
 {
