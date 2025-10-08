@@ -70,12 +70,12 @@ async def post_document(document_id:int, document_name:str):
     except IndexError as ie:
         raise HTTPException(status_code=404, detail="Document {document_id} does not exist")
 @app.post("/document/{document_name}" , response_model=Document)
-async def post_document(document_id:int, document_name:str):
+async def post_document(document_name:str):
     try:
 
         new_id = max(map(lambda x: x[0], documents)) + 1
         documents.append({"document_id": new_id, "document_name": document_name})
-        entry = get_entry_from_list(documents, document_id)
+        entry = get_entry_from_list(documents, new_id)
 
 
         doc = fraGen_langchain.document_to_collection(document_name)
