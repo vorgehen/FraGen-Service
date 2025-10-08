@@ -55,6 +55,7 @@ def check_document_in_list (document_list, entry_id):
 async def post_document(document_id:int, document_name:str):
     try:
         entry_exists = check_document_in_list(documents, document_id)
+        new_id = max(map(lambda x: x[0], documents)) + 1
 
         if not entry_exists:
             documents.append({"document_id": document_id, "document_name": document_name})
@@ -68,7 +69,21 @@ async def post_document(document_id:int, document_name:str):
             raise HTTPException(status_code=405, detail="Document {document_id} exists")
     except IndexError as ie:
         raise HTTPException(status_code=404, detail="Document {document_id} does not exist")
+@app.post("/document/{document_name}" , response_model=Document)
+async def post_document(document_id:int, document_name:str):
+    try:
 
+        new_id = max(map(lambda x: x[0], documents)) + 1
+        documents.append({"document_id": new_id, "document_name": document_name})
+        entry = get_entry_from_list(documents, document_id)
+
+
+        doc = fraGen_langchain.document_to_collection(document_name)
+        json_compatible_item_data = jsonable_encoder(documents[entry])
+        return JSONResponse(content= json_compatible_item_data)
+
+    except IndexError as ie:
+        raise HTTPException(status_code=404, detail="Document {new_id} does not exist")
 @app.put("/document/{document_id}/{document_name}", response_model=Document)
 async def put_document(document_id:int, document_name:str):
     try:
