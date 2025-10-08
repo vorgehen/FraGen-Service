@@ -73,7 +73,7 @@ async def post_document(document_id:int, document_name:str):
 async def post_document(document_name:str):
     try:
 
-        new_id = max(map(lambda x: x[0], documents)) + 1
+        new_id = max(documents, key=lambda x:x['document_id']) + 1
         documents.append({"document_id": new_id, "document_name": document_name})
         entry = get_entry_from_list(documents, new_id)
 
