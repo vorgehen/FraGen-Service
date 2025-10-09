@@ -17,6 +17,8 @@ app = FastAPI()
 documents = [{"document_id": 1, "document_name":"swebok-v4.pdf"},
              {"document_id": 2, "document_name":"allgemeine-pathologie-humanmedizin-skript.pdf"}]
 
+
+
 class Document(BaseModel):
    document_id: int
    document_name: str
@@ -73,7 +75,7 @@ async def post_document(document_id:int, document_name:str):
 async def post_document(document_name:str):
     try:
 
-        new_id = max(documents, key=lambda x:x['document_id']) + 1
+        new_id =max(documents, key=lambda x:x['document_id'])['document_id'] + 1
         documents.append({"document_id": new_id, "document_name": document_name})
         entry = get_entry_from_list(documents, new_id)
 
